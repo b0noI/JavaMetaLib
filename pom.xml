@@ -22,4 +22,15 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+    </dependencies>
+
+
+
+
 </project>
