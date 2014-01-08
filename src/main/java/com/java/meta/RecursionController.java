@@ -5,6 +5,10 @@ package com.java.meta;
  */
 public class RecursionController {
 
+    public static void checkRecursion(final int maxTimes) throws RecursionInvocationException {
+        checkRecursion(maxTimes, false);
+    }
+
     public static void checkRecursion(final int maxTimes, final boolean inLine) throws RecursionInvocationException {
         if (maxTimes <= 0)
             throw new IllegalArgumentException(TAG + " maxTimes <= 0");

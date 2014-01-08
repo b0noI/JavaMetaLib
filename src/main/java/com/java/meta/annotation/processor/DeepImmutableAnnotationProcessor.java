@@ -1,6 +1,7 @@
 package com.java.meta.annotation.processor;
 
 import com.java.meta.annotation.DeepImmutable;
+import org.kohsuke.MetaInfServices;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -16,7 +17,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * Created by b0noI on 08/01/2014.
  */
-@SupportedAnnotationTypes("com.java.meta.annotation.RoundEnvironment")
+@MetaInfServices(javax.annotation.processing.Processor.class)
+@SupportedAnnotationTypes("com.java.meta.annotation.DeepImmutable")
 public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
     @Override
@@ -45,6 +47,7 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
     }
 
     private boolean classValid(final Class<?> classForCheck) {
+
         if (VALID_CLASSES.contains(classForCheck))
             return true;
 
@@ -58,6 +61,8 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
             if ((declareField.getModifiers() & transientModifier) == transientModifier) {
                 continue;
             } else if ((declareField.getModifiers() & finalModifier) == finalModifier) {
+                if (declareField.getType().isPrimitive())
+                    return true;
                 if (!classValid(declareField.getClass()))
                     return false;
             } else {
