@@ -1,4 +1,4 @@
-package meta;
+package com.java.meta;
 
 /**
  * Created by b0noI on 08/01/2014.
