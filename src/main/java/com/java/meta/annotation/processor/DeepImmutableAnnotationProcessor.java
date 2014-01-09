@@ -70,6 +70,9 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
         Class<?> classForCheck = inputClass;
 
+        if (classForCheck == null || classForCheck.isPrimitive())
+            return true;
+
         if (classForCheck.isArray())
             classForCheck = classForCheck.getComponentType();
 
@@ -77,9 +80,6 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
             INVALID_CLASSES.add(classForCheck);
             return false;
         }
-
-        if (classForCheck == null || classForCheck.isPrimitive())
-            return true;
 
         if (VALID_CLASSES.contains(classForCheck))
             return true;
