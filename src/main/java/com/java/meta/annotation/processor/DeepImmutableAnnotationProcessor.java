@@ -1,6 +1,7 @@
 package com.java.meta.annotation.processor;
 
 import com.java.meta.annotation.DeepImmutable;
+import com.java.meta.annotation.DefaultVisibilityLevelForTesting;
 import org.kohsuke.MetaInfServices;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -30,7 +31,7 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
         for(Element e : elements) {
             if (!e.getModifiers().contains(FINAL))
                 failElement(e);
-            if(!classValid(convertToClass(e.asType()), new HashSet<Class<?>>()))
+            if(!classValid(convertToClass(e.asType())))
                 failElement(e);
         }
         return true;
@@ -51,6 +52,12 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    @DefaultVisibilityLevelForTesting
+    static boolean classValid(final Class<?> classForCheck) {
+        return classValid(classForCheck, new HashSet<Class<?>>());
     }
 
     private static boolean classValid(final Class<?> classForCheck, final Set<Class<?>> checkedClasses) {
