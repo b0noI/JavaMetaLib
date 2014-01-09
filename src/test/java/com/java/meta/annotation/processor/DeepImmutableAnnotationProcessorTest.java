@@ -45,20 +45,20 @@ public class DeepImmutableAnnotationProcessorTest {
 
     }
 
-    public static class FinalHasFinal {
+    public class FinalHasFinal {
         final FinalWithoutFields finalWithoutFields = new FinalWithoutFields();
     }
 
-    public static final class FinalHasNoFinal{
+    public final class FinalHasNoFinal{
         NonFinalWithoutFields nonFinalWithoutFields = new NonFinalWithoutFields();
     }
 
-    final Allfinal_1 foo1 = new Allfinal_1();
-    AllFinal_1_2 foo2 = new AllFinal_1_2();
-    JustFinalPrimitive_1_2_3 foo3 = new JustFinalPrimitive_1_2_3();
+    private final Allfinal_1 foo1 = new Allfinal_1();
+    private final AllFinal_1_2 foo2 = new AllFinal_1_2();
+    private final JustFinalPrimitive_1_2_3 foo3 = new JustFinalPrimitive_1_2_3();
 
 
-    DeepImmutableAnnotationProcessor deep = new DeepImmutableAnnotationProcessor();
+    private final DeepImmutableAnnotationProcessor deep = new DeepImmutableAnnotationProcessor();
 
 
     @Test

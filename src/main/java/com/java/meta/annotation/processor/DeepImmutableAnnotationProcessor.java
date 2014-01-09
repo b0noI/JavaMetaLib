@@ -39,11 +39,15 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
     // Private section
 
+    private static final Set<Class<?>> EXCEPTION = new HashSet<Class<?>>(){{
+        add(String.class);
+    }};
+
     private static final String FAIL_STRING = "@DeepImmutable annotated fields must be with deep final fields only";
 
-    private static final Set<Class> VALID_CLASSES = new CopyOnWriteArraySet<>();
+    private static final Set<Class<?>> VALID_CLASSES = new CopyOnWriteArraySet<>(EXCEPTION);
 
-    private static final Set<Class> INVALID_CLASSES = new CopyOnWriteArraySet<>();
+    private static final Set<Class<?>> INVALID_CLASSES = new CopyOnWriteArraySet<>();
 
     private static Class<?> convertToClass(TypeMirror typeMirror) {
         try {
