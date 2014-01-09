@@ -7,12 +7,15 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
+import java.lang.reflect.Modifier;;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import static javax.lang.model.element.Modifier.FINAL;
 
 /**
  * Created by b0noI on 08/01/2014.
@@ -24,10 +27,10 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
     @Override
     public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
         final Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(DeepImmutable.class);
-        for(Element e : elements){
-            if (!e.getModifiers().contains(Modifier.FINAL))
+        for(Element e : elements) {
+            if (!e.getModifiers().contains(FINAL))
                 failElement(e);
-            if(!classValid(e.getClass()))
+            if(!classValid(convertToClass(e.asType()), new HashSet<Class<?>>()))
                 failElement(e);
         }
         return true;
@@ -41,12 +44,19 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
     private static final Set<Class> INVALID_CLASSES = new CopyOnWriteArraySet<>();
 
-    private void failElement(final Element element) {
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
-                FAIL_STRING, element);
+    private static Class<?> convertToClass(TypeMirror typeMirror) {
+        try {
+            return Class.forName(typeMirror.toString());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    private boolean classValid(final Class<?> classForCheck) {
+    private static boolean classValid(final Class<?> classForCheck, final Set<Class<?>> checkedClasses) {
+
+        if (classForCheck == null || classForCheck.isPrimitive())
+            return true;
 
         if (VALID_CLASSES.contains(classForCheck))
             return true;
@@ -54,16 +64,18 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
         if (INVALID_CLASSES.contains(classForCheck))
             return false;
 
-        final int transientModifier = java.lang.reflect.Modifier.TRANSIENT;
-        final int finalModifier = java.lang.reflect.Modifier.FINAL;
-
         for (Field declareField : classForCheck.getDeclaredFields()) {
-            if ((declareField.getModifiers() & transientModifier) == transientModifier) {
+            final int declareFieldModifiers = declareField.getModifiers();
+            if (Modifier.isTransient(declareFieldModifiers)) {
                 continue;
-            } else if ((declareField.getModifiers() & finalModifier) == finalModifier) {
+            } else if (Modifier.isFinal(declareFieldModifiers)) {
                 if (declareField.getType().isPrimitive())
                     return true;
-                if (!classValid(declareField.getClass()))
+                Class<?> nextClass = declareField.getClass();
+                if (checkedClasses.contains(nextClass))
+                    return true;
+                checkedClasses.add(nextClass);
+                if (!classValid(nextClass, checkedClasses))
                     return false;
             } else {
                 INVALID_CLASSES.add(classForCheck);
@@ -73,6 +85,11 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
         VALID_CLASSES.add(classForCheck);
         return true;
+    }
+
+    private void failElement(final Element element) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+                FAIL_STRING, element);
     }
 
 }
