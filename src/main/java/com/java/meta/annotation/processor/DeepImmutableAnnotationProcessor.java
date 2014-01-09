@@ -13,6 +13,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -64,7 +66,17 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
         return classValid(classForCheck, new HashSet<Class<?>>());
     }
 
-    private static boolean classValid(final Class<?> classForCheck, final Set<Class<?>> checkedClasses) {
+    private static boolean classValid(final Class<?> inputClass, final Set<Class<?>> checkedClasses) {
+
+        Class<?> classForCheck = inputClass;
+
+        if (classForCheck.isArray())
+            classForCheck = classForCheck.getComponentType();
+
+        if (!checkGeneric(classForCheck, checkedClasses)) {
+            INVALID_CLASSES.add(classForCheck);
+            return false;
+        }
 
         if (classForCheck == null || classForCheck.isPrimitive())
             return true;
@@ -95,6 +107,19 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
         }
 
         VALID_CLASSES.add(classForCheck);
+        return true;
+    }
+
+    private static boolean checkGeneric(final Class<?> classForCheck, final Set<Class<?>> checkedClasses) {
+        Type genericType = classForCheck.getGenericSuperclass();
+        if (!(genericType instanceof ParameterizedType))
+            return true;
+        ParameterizedType t = (ParameterizedType) genericType;
+        for (Type type : t.getActualTypeArguments()) {
+            final Class<?> typeClass = (Class<?>) type;
+            if (!classValid(typeClass, checkedClasses))
+                return false;
+        }
         return true;
     }
 
