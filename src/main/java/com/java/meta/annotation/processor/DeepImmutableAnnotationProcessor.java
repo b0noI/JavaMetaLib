@@ -1,7 +1,7 @@
 package com.java.meta.annotation.processor;
 
 import com.java.meta.annotation.DeepImmutable;
-import org.kohsuke.MetaInfServices;
+import com.java.meta.annotation.DefaultVisibilityLevelForTesting;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * Created by b0noI on 08/01/2014.
  */
-@MetaInfServices(javax.annotation.processing.Processor.class)
+//@MetaInfServices(javax.annotation.processing.Processor.class)
 @SupportedAnnotationTypes("com.java.meta.annotation.DeepImmutable")
 public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
@@ -46,7 +46,9 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
                 FAIL_STRING, element);
     }
 
-    private boolean classValid(final Class<?> classForCheck) {
+
+    @DefaultVisibilityLevelForTesting
+    boolean classValid(final Class<?> classForCheck) {
 
         if (VALID_CLASSES.contains(classForCheck))
             return true;
