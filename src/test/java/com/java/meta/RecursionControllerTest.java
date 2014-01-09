@@ -1,4 +1,4 @@
-package meta;
+package com.java.meta;
 
 import com.java.meta.RecursionController;
 import org.junit.Test;
