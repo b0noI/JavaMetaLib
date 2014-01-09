@@ -12,44 +12,44 @@ public class DeepImmutableAnnotationProcessorTest {
 
 
 
-    public class Allfinal_1 {
+    public static class Allfinal_1 {
          final AllFinal_1_2 foo2 = new AllFinal_1_2();
     }
 
-    public class AllFinal_1_2 {
+    public static class AllFinal_1_2 {
         final JustFinalPrimitive_1_2_3 foo3 = new JustFinalPrimitive_1_2_3();
     }
 
-    public class JustFinalPrimitive_1_2_3 {
+    public static class JustFinalPrimitive_1_2_3 {
         final int foo = 0;
     }
 
-    public class InnerNotFinal_1 {
+    public static class InnerNotFinal_1 {
         HaveNotFinal_1_2 haveNotFinal = new HaveNotFinal_1_2();
     }
 
 
-    public class HaveNotFinal_1_2 {
+    public static class HaveNotFinal_1_2 {
         JustFinalPrimitive_1_2_3 justFinalPrimitive_1_2_3 = new JustFinalPrimitive_1_2_3();
     }
 
-    public class JustNonFinalPrimitive {
+    public static class JustNonFinalPrimitive {
         int foo = 0;
     }
 
-    public class FinalWithoutFields{
+    public static class FinalWithoutFields{
 
     }
 
-    public class NonFinalWithoutFields{
+    public static class NonFinalWithoutFields{
 
     }
 
-    public class FinalHasFinal {
+    public static class FinalHasFinal {
         final FinalWithoutFields finalWithoutFields = new FinalWithoutFields();
     }
 
-    public final class FinalHasNoFinal{
+    public static final class FinalHasNoFinal{
         NonFinalWithoutFields nonFinalWithoutFields = new NonFinalWithoutFields();
     }
 
