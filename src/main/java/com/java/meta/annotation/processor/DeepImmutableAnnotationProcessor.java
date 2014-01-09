@@ -90,8 +90,6 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
                     return false;
             } else {
                 INVALID_CLASSES.add(classForCheck);
-                System.out.println(INVALID_CLASSES.toString());
-                System.out.println(VALID_CLASSES.toString());
                 return false;
             }
         }
