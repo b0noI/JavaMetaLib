@@ -1,8 +1,0 @@
-META-INF/services/javax.annotation.processing.Processor
-com/java/meta/RecursionController.class
-com/java/meta/annotation/processor/TestAnnClass.class
-com/java/meta/RecursionController$RecursionInvocationException.class
-com/java/meta/annotation/DeepImmutable.class
-com/java/meta/RecursionController$1.class
-com/java/meta/annotation/processor/DeepImmutableAnnotationProcessor.class
-com/java/meta/annotation/DefaultVisibilityLevelForTesting.class
