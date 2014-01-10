@@ -62,7 +62,7 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
 
     @DefaultVisibilityLevelForTesting
-    static boolean classValid(final Class<?> classForCheck) {
+    public static boolean classValid(final Class<?> classForCheck) {
         return classValid(classForCheck, new HashSet<Class<?>>());
     }
 

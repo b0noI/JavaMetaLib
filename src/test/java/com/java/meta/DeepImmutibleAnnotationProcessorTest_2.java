@@ -1,21 +1,12 @@
-package com.java.meta.annotation.processor;
+package com.java.meta;
 
-import org.junit.Before;
+
+import com.java.meta.annotation.processor.DeepImmutableAnnotationProcessor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by никита on 10.01.14.
- */
-public class DeepImmutableAnnotationProcessorTest {
-
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
+public class DeepImmutibleAnnotationProcessorTest_2 {
 
     public class Allfinal_1 {
         final AllFinal_1_2 foo2 = new AllFinal_1_2();
@@ -34,6 +25,10 @@ public class DeepImmutableAnnotationProcessorTest {
     @Test
     public void testClassValid_with_finals_List() throws Exception {
         DeepImmutableAnnotationProcessor deep = new DeepImmutableAnnotationProcessor();
-        assertTrue(deep.classValid(DeepImmutableAnnotationProcessorTest_old.Allfinal_1.class));
+        assertTrue(deep.classValid(Allfinal_1.class));
     }
+
+
+
+
 }
