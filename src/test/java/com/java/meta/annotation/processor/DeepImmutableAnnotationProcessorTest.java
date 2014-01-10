@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 
 public class DeepImmutableAnnotationProcessorTest {
+
     public static class Allfinal_1 {
          final AllFinal_1_2 foo2 = new AllFinal_1_2();
     }
@@ -33,21 +34,21 @@ public class DeepImmutableAnnotationProcessorTest {
         int foo = 0;
     }
 
-    public class FinalWithoutFields{
+    public static class FinalWithoutFields{
     }
 
-    public class NonFinalWithoutFields{
+    public static class NonFinalWithoutFields{
     }
 
-    public final class FinalHasFinal {
+    public static final class FinalHasFinal {
         final FinalWithoutFields finalWithoutFields = new FinalWithoutFields();
     }
 
-    public final class FinalHasNoFinal{
+    public static final class FinalHasNoFinal {
         NonFinalWithoutFields nonFinalWithoutFields = new NonFinalWithoutFields();
     }
 
-    public final class WithFinalList{
+    public static final class WithFinalList{
         final ArrayList<Allfinal_1> list = new ArrayList<>();
     }
 
@@ -55,17 +56,17 @@ public class DeepImmutableAnnotationProcessorTest {
         ArrayList<InnerNotFinal_1> list = new ArrayList<>();
     }
 
-    DeepImmutableAnnotationProcessor deep = new DeepImmutableAnnotationProcessor();
-    ArrayList<Allfinal_1> list = new ArrayList<>();
+    private final DeepImmutableAnnotationProcessor deep = new DeepImmutableAnnotationProcessor();
+    private final ArrayList<Allfinal_1> list = new ArrayList<>();
 
     @Test
     public void testClassValid_with_class_with_NON_final_List() throws Exception {
         assertFalse(deep.classValid(WithNonFinalList.class));
     }
 
-        @Test
+    @Test
     public void testClassValid_with_class_with_final_List() throws Exception {
-        assertTrue(deep.classValid(WithFinalList.class));
+        assertFalse(deep.classValid(WithFinalList.class));
     }
 
     @Test
