@@ -6,9 +6,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by b0noI on 08/01/2014.
+ * Checking immutability of field. Type of field must bee DeepImmutable
+ *
+ * DeepImmutable type is next type:
+ * - all filed must or final or transient
+ * - all field types must be DeepImmutable
+ * - if type is Generic, parametrise type must be set:
+ *  - List<?> - incorrect type
+ *  - List - incorrect type
+ *  - List<Integer> - correct type
+ * - arrays must be with DeepImmutable types
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface DeepImmutable {
 }

@@ -115,6 +115,10 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
         if (!(genericType instanceof ParameterizedType))
             return true;
         ParameterizedType t = (ParameterizedType) genericType;
+
+        if (t.getActualTypeArguments().length == 0)
+            return false;
+
         for (Type type : t.getActualTypeArguments()) {
             final Class<?> typeClass = (Class<?>) type;
             if (!classValid(typeClass, checkedClasses))

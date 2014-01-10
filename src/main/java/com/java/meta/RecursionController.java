@@ -1,14 +1,69 @@
 package com.java.meta;
 
 /**
- * Created by b0noI on 08/01/2014.
+ * This class contains checkRecursion methods, can't be instantiated due to all methods is static
  */
-public class RecursionController {
+public final class RecursionController {
 
+    /**
+     * see RecursionController.checkRecursion
+     *
+     * @param maxTimes
+     * @throws RecursionInvocationException
+     */
     public static void checkRecursion(final int maxTimes) throws RecursionInvocationException {
         checkRecursion(maxTimes, false);
     }
 
+    /**
+     * Checking recursions in stack. If method was called more than {maxTimes} times throws exception RecursionInvocationException
+     *
+     * For Example:
+     *
+     * {@code "static final int MAX_RECURSION_CALL = 3;
+     * boolean get(){
+     * RecursionController.checkRecursion(MAX_RECURSION_CALL, false);
+     * // source
+     * if (!result) return get();
+     * }"}
+     *
+     * if methods stack will be like:
+     * get()
+     * foo()
+     * get()
+     * foo()
+     * foo()
+     *
+     * it will NOT throw exception, but in next case:
+     *
+     * get()
+     * foo()
+     * get()
+     * get()
+     * foo()
+     * get()
+     * foo()
+     * foo()
+     *
+     * it will throw exception (if inLine is false). So you can start method like:
+     *
+     * try {
+     *     get();
+     * } catch(RecursionInvocationException e) {
+     *     // code
+     * }
+     *
+     * next case will throw Exception even if inLIne if true:
+     *
+     * get()
+     * get()
+     * get()
+     * get()
+     * foo()
+     *
+     * @param maxTimes
+     * @throws RecursionInvocationException
+     */
     public static void checkRecursion(final int maxTimes, final boolean inLine) throws RecursionInvocationException {
         if (maxTimes <= 0)
             throw new IllegalArgumentException(TAG + " maxTimes <= 0");
@@ -29,6 +84,9 @@ public class RecursionController {
         }
     }
 
+    /**
+     * RecursionInvocationException throwing by methods in this class in case of unwanted recursion
+     */
     public static class RecursionInvocationException extends Exception {
 
         private RecursionInvocationException(final String msg) {
@@ -71,5 +129,7 @@ public class RecursionController {
         }
         return count;
     }
+
+    private RecursionController(){}
 
 }
