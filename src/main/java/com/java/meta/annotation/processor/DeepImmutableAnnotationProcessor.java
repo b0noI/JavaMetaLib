@@ -3,6 +3,7 @@ package com.java.meta.annotation.processor;
 import com.java.meta.annotation.DeepImmutable;
 import com.java.meta.annotation.DefaultVisibilityLevelForTesting;
 import org.kohsuke.MetaInfServices;
+import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -51,7 +52,7 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
 
     private static final Set<Class<?>> INVALID_CLASSES = new CopyOnWriteArraySet<>();
 
-    private static Class<?> convertToClass(TypeMirror typeMirror) {
+    private static Class<?> convertToClass(final TypeMirror typeMirror) {
         try {
             return Class.forName(typeMirror.toString());
         } catch (ClassNotFoundException e) {
@@ -94,6 +95,7 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
             } else if (Modifier.isFinal(declareFieldModifiers)) {
                 if (declareField.getType().isPrimitive())
                     return true;
+                declareField.getGenericType();
                 Class<?> nextClass = declareField.getType();
                 if (checkedClasses.contains(nextClass))
                     return true;
@@ -120,6 +122,8 @@ public class DeepImmutableAnnotationProcessor extends AbstractProcessor {
             return false;
 
         for (Type type : t.getActualTypeArguments()) {
+            if (type instanceof TypeVariableImpl)
+                return false;
             final Class<?> typeClass = (Class<?>) type;
             if (!classValid(typeClass, checkedClasses))
                 return false;

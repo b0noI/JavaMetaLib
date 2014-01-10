@@ -11,10 +11,7 @@ import java.lang.annotation.Target;
  * DeepImmutable type is next type:
  * - all filed must or final or transient
  * - all field types must be DeepImmutable
- * - if type is Generic, parametrise type must be set:
- *  - List<?> - incorrect type
- *  - List - incorrect type
- *  - List<Integer> - correct type
+ * - if type is NOT Generic
  * - arrays must be with DeepImmutable types
  */
 @Target(ElementType.FIELD)

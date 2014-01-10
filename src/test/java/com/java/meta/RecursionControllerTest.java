@@ -5,17 +5,12 @@ import org.junit.Test;
 
 public class RecursionControllerTest {
 
-//    @Rule
-//    public ExpectedException exception = ExpectedException.none();
-
-    public RecursionController recursionController = new RecursionController();
-
 
     public void testCheckRecursionMethodNullPointerExeption(int x) throws Exception{
         for (int i = x; i >= 0; i--){
 //            System.out.println(x);
             x--;
-            recursionController.checkRecursion(x, true);
+            RecursionController.checkRecursion(x, true);
         }
         this.testCheckRecursionMethodNullPointerExeption(x);
     }
@@ -24,7 +19,7 @@ public class RecursionControllerTest {
         for (int i = x; i > 1; i--){
 //            System.out.println(x);
             x--;
-            recursionController.checkRecursion(3, true);
+            RecursionController.checkRecursion(3, true);
         }
         this.testCheckRecursionMethodStackOverFlow(x);
     }
@@ -32,15 +27,13 @@ public class RecursionControllerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithOutCheckRecursionNullPointerTrue() throws Exception {
-        RecursionController recursionController = new RecursionController();
-        recursionController.checkRecursion(0, true);
+        RecursionController.checkRecursion(0, true);
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithOutCheckRecursionNullPointerFalse() throws Exception {
-        RecursionController recursionController = new RecursionController();
-        recursionController.checkRecursion(0, false);
+        RecursionController.checkRecursion(0, false);
 
     }
 
