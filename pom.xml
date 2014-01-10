@@ -9,22 +9,18 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <!--<name>JavaMetaLib</name>-->
-    <!--<description>JavaMetaLib core. Created to find inner final fields</description>-->
-    <!--<url>?????????????????????</url>-->
-
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>????????????</id>-->
-            <!--<name>????????????????</name>-->
-            <!--<url>??????????????</url>-->
-        <!--</repository>-->
+    <distributionManagement>
+        <repository>
+            <id>snapshots</id>
+            <name>libs-snapshot-local</name>
+            <url>http://192.241.238.122:8081/artifactory/libs-snapshot-local</url>
+        </repository>
         <!--<snapshotRepository>-->
             <!--<id>?????????</id>-->
             <!--<name>??????????</name>-->
             <!--<url>????????????</url>-->
         <!--</snapshotRepository>-->
-    <!--</distributionManagement>-->
+    </distributionManagement>
 
     <build>
         <plugins>
