@@ -22,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import static javax.lang.model.element.Modifier.FINAL;
 
 /**
- * Created by b0noI on 08/01/2014.
+ * Processor for processing DeepImmutable annotation
  */
 @MetaInfServices(javax.annotation.processing.Processor.class)
 @SupportedAnnotationTypes("com.java.meta.annotation.DeepImmutable")
