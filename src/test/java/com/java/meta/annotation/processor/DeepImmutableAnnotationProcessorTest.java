@@ -58,7 +58,6 @@ public class DeepImmutableAnnotationProcessorTest {
     DeepImmutableAnnotationProcessor deep = new DeepImmutableAnnotationProcessor();
     ArrayList<Allfinal_1> list = new ArrayList<>();
 
-
     @Test
     public void testClassValid_with_class_with_NON_final_List() throws Exception {
         assertFalse(deep.classValid(WithNonFinalList.class));
@@ -69,7 +68,6 @@ public class DeepImmutableAnnotationProcessorTest {
         assertTrue(deep.classValid(WithFinalList.class));
     }
 
-
     @Test
     public void testClassValid_with_class_with_primitive_final_fields() throws Exception {
         assertTrue(deep.classValid(JustFinalPrimitive_1_2_3.class));
@@ -79,7 +77,6 @@ public class DeepImmutableAnnotationProcessorTest {
     public void testClassValid_with_class_without_fields() throws Exception {
         assertTrue(deep.classValid(FinalWithoutFields.class));
     }
-
 
     @Test
     public void testClassValid_with_finals_1() throws Exception {
@@ -110,8 +107,5 @@ public class DeepImmutableAnnotationProcessorTest {
     public void testClassValid_without_finals_3() throws Exception {
         assertFalse(deep.classValid(FinalHasNoFinal.class));
     }
-
-
-
 
 }
