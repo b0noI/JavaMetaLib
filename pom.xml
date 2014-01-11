@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>JavaMetaLib</groupId>
+    <groupId>com.java.meta</groupId>
     <artifactId>JavaMetaLib</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
@@ -15,11 +15,6 @@
             <name>libs-snapshot-local</name>
             <url>http://192.241.238.122:8081/artifactory/libs-snapshot-local</url>
         </repository>
-        <!--<snapshotRepository>-->
-            <!--<id>?????????</id>-->
-            <!--<name>??????????</name>-->
-            <!--<url>????????????</url>-->
-        <!--</snapshotRepository>-->
     </distributionManagement>
 
     <build>
