@@ -3,12 +3,11 @@ package com.java.meta;
 import org.junit.Test;
 
 public class RecursionControllerTest {
-    public RecursionController recursionController = new RecursionController();
 
     public void testCheckRecursionMethodNullPointerExeption(int x) throws Exception{
         for (int i = x; i >= 0; i--){
             x--;
-            recursionController.checkRecursion(x, true);
+            RecursionController.checkRecursion(x, true);
         }
         this.testCheckRecursionMethodNullPointerExeption(x);
     }
@@ -16,21 +15,19 @@ public class RecursionControllerTest {
     public void testCheckRecursionMethodStackOverFlow(int x) throws Exception{
         for (int i = x; i > 1; i--){
             x--;
-            recursionController.checkRecursion(3, true);
+            RecursionController.checkRecursion(3, true);
         }
         this.testCheckRecursionMethodStackOverFlow(x);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithOutCheckRecursionNullPointerTrue() throws Exception {
-        RecursionController recursionController = new RecursionController();
-        recursionController.checkRecursion(0, true);
+        RecursionController.checkRecursion(0, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWithOutCheckRecursionNullPointerFalse() throws Exception {
-        RecursionController recursionController = new RecursionController();
-        recursionController.checkRecursion(0, false);
+        RecursionController.checkRecursion(0, false);
     }
 
     @Test(expected = IllegalArgumentException.class)
